@@ -127,6 +127,7 @@ class BinarySearchTree {
   //Visiting nodes vertically.
   //With PreOrder, we visit current node, then all left children and 
   //then all right children
+  //PARENT->LEFT->RIGHT
   DFSPreOrder() {
     let nodesVisited = []; //to store the list and return it
     let current = this.root; //a reference to current node starting at root
@@ -153,6 +154,7 @@ class BinarySearchTree {
   //We can re use the logic of the PRE-ORDER approach,
   //we only need to change WHEN WE PUSH the node to the visitedNodes array
   //we now want to push AFTER checking the left and right children
+  //LEFT->RIGHT->PARENT
   DFSPostOrder() {
     let nodesVisited = []; //to store the list and return it
     let current = this.root; //a reference to current node starting at root
@@ -174,5 +176,32 @@ class BinarySearchTree {
     return nodesVisited; //return the lsit of nodes visited in pre order
   }
 
+  //With InOrder, we visit the entire left children, then the current node,
+  //then the entire right children
+  //We can re use the logic of the PRE OR POST ORDER approach,
+  //we only need to change WHEN WE PUSH the node to the visitedNodes array
+  //we now want to push after checking the left and right children
+  //LEFT->PARENT->RIGHT
+  DFSInOrder() {
+    let nodesVisited = []; //to store the list and return it
+    let current = this.root; //a reference to current node starting at root
+
+    //A method to traverse depth first and push the
+    //current node being visited and also push it's left and right
+    //children recursively.
+    function traverse(node) {
+      //if it has a left child or right child
+      if (node.left) traverse(node.left); //traverse the left recursively
+
+      nodesVisited.push(node); //push the node being visited
+      
+      if (node.right) traverse(node.right); //traverse the right recursively
+    }
+
+    //invoke traverse with current node
+    traverse(current);
+
+    return nodesVisited; //return the lsit of nodes visited in pre order
+  }
   
 }
